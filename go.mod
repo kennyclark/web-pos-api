@@ -1,6 +1,8 @@
-module github.com/kennyclark/web-pos
+module github.com/kennyclark/web-pos-api
 
 go 1.25
+
+require github.com/gofiber/fiber/v2 v2.52.10
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
@@ -11,7 +13,6 @@ require (
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/gofiber/fiber/v2 v2.52.10 // indirect
 	github.com/gohugoio/hugo v0.149.1 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/klauspost/compress v1.17.9 // indirect
