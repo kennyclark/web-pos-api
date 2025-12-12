@@ -2,7 +2,10 @@ module github.com/kennyclark/web-pos-api
 
 go 1.25
 
-require github.com/gofiber/fiber/v2 v2.52.10
+require (
+	github.com/goccy/go-json v0.10.5
+	github.com/gofiber/fiber/v2 v2.52.10
+)
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
