@@ -1,0 +1,31 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{process.env.BASE_URL}}/api/categories/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: {{categoryId}}
+}
+
+body:json {
+  {
+    "id": {{categoryId}},
+    "name": "New Category (updated)"
+  }
+}
+
+script:post-response {
+  bru.runner.setNextRequest("delete")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

@@ -1,0 +1,28 @@
+meta {
+  name: create
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{process.env.BASE_URL}}/api/categories
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "New Category"
+  }
+}
+
+script:post-response {
+  const categoryId = res.body.data.id
+  bru.setVar("categoryId", categoryId)
+  bru.runner.setNextRequest("get-by-id")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

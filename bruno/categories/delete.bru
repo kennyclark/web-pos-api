@@ -1,0 +1,25 @@
+meta {
+  name: delete
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{process.env.BASE_URL}}/api/categories/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: {{categoryId}}
+}
+
+script:post-response {
+  bru.runner.setNextRequest(null)
+  bru.deleteVar("categoryId")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

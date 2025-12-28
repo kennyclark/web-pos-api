@@ -2,6 +2,7 @@ package server
 
 import (
 	"github.com/goccy/go-json"
+	"github.com/kennyclark/web-pos-api/internal/routes"
 	"github.com/kennyclark/web-pos-api/internal/utils"
 
 	"github.com/gofiber/fiber/v2"
@@ -35,6 +36,10 @@ func New() (*fiber.App, error) {
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Welcome to Web-POS API.")
 	})
+
+	// API routes
+	api := app.Group("/api")
+	routes.Categories(api)
 
 	return app, nil
 }
