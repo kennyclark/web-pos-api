@@ -8,8 +8,8 @@ import (
 func Categories(api fiber.Router) {
 	categories := api.Group("/categories")
 	categories.Get("/", handlers.GetAllCategories)
-	categories.Get("/:id", handlers.GetCategoryByID)
+	categories.Get("/:id", handlers.GetCategoryById)
 	categories.Post("/", handlers.CreateCategory)
 	categories.Put("/:id", handlers.UpdateCategory)
-	categories.Delete("/:id", handlers.DeleteCategoryByID)
+	categories.Delete("/:id", handlers.DeleteCategory)
 }

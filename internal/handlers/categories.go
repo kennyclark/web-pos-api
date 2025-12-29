@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 
@@ -24,7 +23,7 @@ func GetAllCategories(c *fiber.Ctx) error {
 	})
 }
 
-func GetCategoryByID(c *fiber.Ctx) error {
+func GetCategoryById(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		log.Printf("Unable to convert ID to int: %v\n", err)
@@ -57,7 +56,7 @@ func CreateCategory(c *fiber.Ctx) error {
 	if err != nil {
 		log.Printf("Unable to create category: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": fmt.Sprintf("Unable to create category: %v\n", err),
+			"error": "Unable to create category",
 		})
 	}
 
@@ -69,7 +68,7 @@ func CreateCategory(c *fiber.Ctx) error {
 
 func UpdateCategory(c *fiber.Ctx) error {
 	var category sqlc.Category
-	if err := c.BodyParser((&category)); err != nil {
+	if err := c.BodyParser(&category); err != nil {
 		log.Printf("Unable to parse body: %v\n", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid request body",
@@ -107,7 +106,7 @@ func UpdateCategory(c *fiber.Ctx) error {
 	})
 }
 
-func DeleteCategoryByID(c *fiber.Ctx) error {
+func DeleteCategory(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		log.Printf("Unable to convert ID to int: %v\n", err)
