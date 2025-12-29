@@ -1,0 +1,35 @@
+meta {
+  name: create
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{process.env.BASE_URL}}/api/products
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "New Product",
+    "description": "",
+    "cost_price_cents": 1000,
+    "selling_price_cents": 1200,
+    "quantity_on_hand": 10,
+    "low_stock_threshold": 3,
+    "category_id": null,
+    "is_active": true
+  }
+}
+
+script:post-response {
+  const productId = res.body.data.id
+  bru.setVar("productId", productId)
+  bru.runner.setNextRequest("get-by-id")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

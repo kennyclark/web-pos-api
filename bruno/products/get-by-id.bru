@@ -1,0 +1,24 @@
+meta {
+  name: get-by-id
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{process.env.BASE_URL}}/api/products/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: {{productId}}
+}
+
+script:post-response {
+  bru.runner.setNextRequest("update")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

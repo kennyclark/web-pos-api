@@ -1,0 +1,38 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{process.env.BASE_URL}}/api/products/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: {{productId}}
+}
+
+body:json {
+  {
+    "id": {{productId}},
+    "name": "New Product (updated)",
+    "description": "",
+    "cost_price_cents": 1000,
+    "selling_price_cents": 1200,
+    "quantity_on_hand": 10,
+    "low_stock_threshold": 3,
+    "category_id": null,
+    "is_active": true
+  }
+}
+
+script:post-response {
+  bru.runner.setNextRequest("delete")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

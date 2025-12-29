@@ -40,6 +40,7 @@ func New() (*fiber.App, error) {
 	// API routes
 	api := app.Group("/api")
 	routes.Categories(api)
+	routes.Products(api)
 
 	return app, nil
 }

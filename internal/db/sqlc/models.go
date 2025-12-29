@@ -4,7 +4,27 @@
 
 package sqlc
 
+import (
+	"time"
+
+	"github.com/jackc/pgx/v5/pgtype"
+)
+
 type Category struct {
 	ID   int32  `json:"id"`
 	Name string `json:"name"`
+}
+
+type Product struct {
+	ID                int32       `json:"id"`
+	Name              string      `json:"name"`
+	Description       string      `json:"description"`
+	CostPriceCents    int32       `json:"cost_price_cents"`
+	SellingPriceCents int32       `json:"selling_price_cents"`
+	QuantityOnHand    int32       `json:"quantity_on_hand"`
+	LowStockThreshold int32       `json:"low_stock_threshold"`
+	CategoryID        pgtype.Int4 `json:"category_id"`
+	IsActive          bool        `json:"is_active"`
+	CreatedAt         time.Time   `json:"created_at"`
+	UpdatedAt         time.Time   `json:"updated_at"`
 }
