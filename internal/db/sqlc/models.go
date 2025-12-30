@@ -15,6 +15,15 @@ type Category struct {
 	Name string `json:"name"`
 }
 
+type Customer struct {
+	ID            int32     `json:"id"`
+	Name          string    `json:"name"`
+	Address       string    `json:"address"`
+	ContactNumber string    `json:"contact_number"`
+	CreatedAt     time.Time `json:"created_at"`
+	UpdatedAt     time.Time `json:"updated_at"`
+}
+
 type Product struct {
 	ID                int32       `json:"id"`
 	Name              string      `json:"name"`

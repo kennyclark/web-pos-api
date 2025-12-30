@@ -42,6 +42,7 @@ func New() (*fiber.App, error) {
 	routes.Categories(api)
 	routes.Products(api)
 	routes.Vendors(api)
+	routes.Customers(api)
 
 	return app, nil
 }

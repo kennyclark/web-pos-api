@@ -9,22 +9,20 @@ import (
 	"github.com/kennyclark/web-pos-api/internal/db/sqlc"
 )
 
-func GetAllVendors(c *fiber.Ctx) error {
-	vendors, err := db.Q.GetAllVendors(c.Context())
+func GetAllCustomers(c *fiber.Ctx) error {
+	customers, err := db.Q.GetAllCustomers(c.Context())
 	if err != nil {
-		log.Printf("Unable to get all vendors: %v\n", err)
-		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Unable to get all vendors",
-		})
+		log.Printf("Unable to get all customers: %v\n", err)
+
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"data":    vendors,
-		"message": "Vendors retrieved successfully",
+		"data":    customers,
+		"message": "Customers retrieved successfully",
 	})
 }
 
-func GetVendorById(c *fiber.Ctx) error {
+func GetCustomerById(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		log.Printf("Unable to convert ID to int: %v\n", err)
@@ -33,45 +31,46 @@ func GetVendorById(c *fiber.Ctx) error {
 		})
 	}
 
-	vendor, err := db.Q.GetVendorById(c.Context(), int32(id))
+	customer, err := db.Q.GetCustomerById(c.Context(), int32(id))
 	if err != nil {
 		log.Printf("Unable to get vendor by ID: %v\n", err)
 		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
-			"error": "Vendor not found",
+			"error": "Customer not found",
 		})
 	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"data":    vendor,
-		"message": "Vendor retrieved successfully",
+		"data":    customer,
+		"message": "Customer successfully retrieved",
 	})
 }
 
-func CreateVendor(c *fiber.Ctx) error {
-	var vendor sqlc.CreateVendorParams
-	if err := c.BodyParser(&vendor); err != nil {
+func CreateCustomer(c *fiber.Ctx) error {
+	var customer sqlc.CreateCustomerParams
+	if err := c.BodyParser(&customer); err != nil {
 		log.Printf("Unable to parse request body: %v\n", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid request body",
 		})
 	}
 
-	createdVendor, err := db.Q.CreateVendor(c.Context(), vendor)
+	createdCustomer, err := db.Q.CreateCustomer(c.Context(), customer)
 	if err != nil {
-		log.Printf("Unable to create vendor: %v\n", err)
+		log.Printf("Unable to create customer: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Unable to create vendor",
+			"error": "Unable to create customer",
 		})
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(fiber.Map{
-		"data":    createdVendor,
-		"message": "Vendor created successfully",
+		"data":    createdCustomer,
+		"message": "Customer created successfully",
 	})
 }
 
-func UpdateVendor(c *fiber.Ctx) error {
-	var vendor sqlc.UpdateVendorParams
-	if err := c.BodyParser(&vendor); err != nil {
+func UpdateCustomer(c *fiber.Ctx) error {
+	var customer sqlc.UpdateCustomerParams
+	if err := c.BodyParser(&customer); err != nil {
 		log.Printf("Unable to parse request body: %v\n", err)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "Invalid request body",
@@ -86,28 +85,27 @@ func UpdateVendor(c *fiber.Ctx) error {
 		})
 	}
 
-	if int32(id) != vendor.ID {
-		log.Printf("ID mismatch: %d != %d\n", id, vendor.ID)
+	if int32(id) != customer.ID {
+		log.Printf("ID mismatch: %d != %d\n", id, customer.ID)
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
 			"error": "ID mismatch",
 		})
 	}
 
-	updatedVendor, err := db.Q.UpdateVendor(c.Context(), vendor)
+	updatedCustomer, err := db.Q.UpdateCustomer(c.Context(), customer)
 	if err != nil {
-		log.Printf("Unable to update vendor: %v\n", err)
+		log.Printf("Unable to update customer: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Unable to update vendor",
+			"error": "Unable to update customer",
 		})
 	}
-
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"data":    updatedVendor,
-		"message": "Vendor updated successfully",
+		"data":    updatedCustomer,
+		"message": "Customer updated successfully",
 	})
 }
 
-func DeleteVendor(c *fiber.Ctx) error {
+func DeleteCustomer(c *fiber.Ctx) error {
 	id, err := strconv.Atoi(c.Params("id"))
 	if err != nil {
 		log.Printf("Unable to convert ID to int: %v\n", err)
@@ -116,14 +114,14 @@ func DeleteVendor(c *fiber.Ctx) error {
 		})
 	}
 
-	if err := db.Q.DeleteVendor(c.Context(), int32(id)); err != nil {
-		log.Printf("Unable to delete vendor: %v\n", err)
+	if err := db.Q.DeleteCustomer(c.Context(), int32(id)); err != nil {
+		log.Printf("Unable to delete customer: %v\n", err)
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-			"error": "Unable to delete vendor",
+			"error": "Unable to delete customer",
 		})
 	}
 
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"message": "Vendor deleted successfully",
+		"message": "Customer deleted successfully",
 	})
 }

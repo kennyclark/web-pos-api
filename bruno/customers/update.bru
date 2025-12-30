@@ -1,0 +1,30 @@
+meta {
+  name: update
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{process.env.BASE_URL}}/api/customers/:id
+  body: json
+  auth: inherit
+}
+
+params:path {
+  id: {{customerId}}
+}
+
+body:json {
+  {
+    "id": {{customerId}},
+    "name": "New Customer (updated)",
+    "address": "Manila, Philippines",
+    "contact_person": "Juana dela Cruz",
+    "contact_number": "090987654321"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

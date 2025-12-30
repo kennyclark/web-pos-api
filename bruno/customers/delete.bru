@@ -1,0 +1,24 @@
+meta {
+  name: delete
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{process.env.BASE_URL}}/api/customers/:id
+  body: none
+  auth: inherit
+}
+
+params:path {
+  id: {{customerId}}
+}
+
+script:post-response {
+  bru.deleteVar("vendorId")
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
