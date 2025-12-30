@@ -17,6 +17,7 @@ func GetAllCategories(c *fiber.Ctx) error {
 			"error": "Unable to get all categories",
 		})
 	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"data":    categories,
 		"message": "Categories retrieved successfully",

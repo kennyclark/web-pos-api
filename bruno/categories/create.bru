@@ -19,7 +19,6 @@ body:json {
 script:post-response {
   const categoryId = res.body.data.id
   bru.setVar("categoryId", categoryId)
-  bru.runner.setNextRequest("get-by-id")
 }
 
 settings {

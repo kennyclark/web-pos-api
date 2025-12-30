@@ -17,6 +17,7 @@ func GetAllProducts(c *fiber.Ctx) error {
 			"error": "Unable to get all products",
 		})
 	}
+
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"data":    products,
 		"message": "Products retrieved successfully",
