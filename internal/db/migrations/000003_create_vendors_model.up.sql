@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS vendors(
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL UNIQUE CHECK (name <> ''),
+  address TEXT NOT NULL DEFAULT '',
+  contact_person TEXT NOT NULL DEFAULT '',
+  contact_number VARCHAR(12) NOT NULL DEFAULT '',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
